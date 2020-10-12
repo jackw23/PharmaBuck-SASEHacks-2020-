@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+  <title>PharmaBuck$</title>
+
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" -->
+
+</head>
+
+<style>
+    th{ 
+    cursor: pointer;
+    color:#fff;
+    }
+
+    h1 {
+
+color:white;
+font-family: verdana;
+font-size: 200%;
+}
+h1 {text-align: center;}
+p 
+{ font-size: 150%;
+font-family: verdana;
+font-weight: bold;
+color:white;
+}
+input {text-align: center;}
+
+h1 {
+font-size:40px;
+color:#538b01;
+font-weight:bold;
+font-style:normal;
+}
+
+mark.white {
+color:rgb(255, 254, 254);
+background: none;
+
+}
+
+mark.green {
+color:#00a808c9;
+background: none;
+-webkit-text-stroke: 1.5px black;
+}
+body {
+background: linear-gradient(-45deg, #69e08d, #2aca7a, #1777af, #85c1e4);
+background-size: 400% 400%;
+animation: gradient 8s ease infinite;
+}
+
+@keyframes gradient {
+0% {
+    background-position: 0% 50%;
+}
+50% {
+    background-position: 100% 50%;
+}
+100% {
+    background-position: 0% 50%;
+}
+}
+.topleft {
+position: absolute;
+top: 213px;
+left: 65px;
+}
+    
+        
+</style>
+
+<h1>
+    <mark class="white">Pharma</mark><mark class="green">Buck$</mark>
+</h1>
+
+<img src="https://www.appian.com/transform/wp-content/uploads/sites/11/2017/01/banner-healthcare-campaign.jpg" alt="appian.com" style="width:1535px;height:400px;">
+<div class="topleft">
+    <p>Stay healthy at an affordable price!</p>
+    <p>With PharmaBucks, your low-cost medication</p>
+    <p>is just a search away!</p> 
+</div>
+  
+<!--Search feature-->
+<div class = "row">
+    <div class = "col">
+        <div class="card card-body">
+            <input id="search-input" class="form-control" type="text">
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <tr  class="bg-info">
+        <th  class="bg-info" data-colname="name" data-order="desc">Drug Name</th>
+        <th  data-colname="age" data-order="desc">Walmart($)</th>
+        <th  data-colname="birthdate" data-order="desc">CVS Health($)</th>
+        <th  data-colname="walmart" data-order="desc">Walgreens($)</th>
+    </tr>
+    <tbody id="myTable">
+        
+    </tbody>
+</table>
+
+<script>
+
+    var myArray = [
+    {'name':'Advil (Ibuprofen non-prescription)','Walmart':'<a href="https://www.walmart.com/ip/Children-s-Motrin-Ibuprofen-Kids-Medicine-Berry-Flavored-4-fl-oz/10294152" style="color:#FFFFFF;"> 5.77</a>', 'CVS':'<a href="https://www.cvs.com/shop/advil-pain-reliever-fever-reducer-ibuprofen-tablets-200mg-prodid-1040240" style="color:#FFFFFF;">6.79</a>','Walgreens':'<a href="https://www.walgreens.com/store/c/advil-ibuprofen-pain-reliever/-fever-reducer-tablets,-200-mg/ID=prod5368-product?skuId=sku305367" style="color:#FFFFFF;">6.79</a>'},
+
+    {'name':'Motrin','Walmart':'<a href="https://www.walmart.com/ip/Children-s-Motrin-Ibuprofen-Kids-Medicine-Berry-Flavored-4-fl-oz/10294152" style="color:#FFFFFF;"> 5.97</a>', 'CVS':'<a href="https://www.cvs.com/shop/children-s-motrin-ibuprofen-kids-medicine-berry-flavored-4-fl-oz-prodid-1012148" style="color:#FFFFFF;">8.49</a>','Walgreens':'<a href="https://www.walgreens.com/store/c/childrens-motrin-oral-suspension-berry/ID=prod5391-product" style="color:#FFFFFF;"> 7.99</a>'},
+        
+    {'name':'Aleve (Naproxen non-prescription) ',"Walmart":'<a href="https://www.walmart.com/ip/Aleve-Pain-Reliever-Fever-Reducer-Naproxen-Sodium-Caplets-220-mg-24-Ct/10416182" style="color:#FFFFFF;">3.76</a>', "CVS":'<a href="https://www.cvs.com/shop/aleve-tablets-with-naproxen-sodium-220mg-nsaid-pain-reliever-fever-reducer-prodid-1012113" style="color:#FFFFFF;">5.99</a>',"Walgreens":'<a href="https://www.walgreens.com/store/c/aleve-back-%26-muscle-pain-tablet,-pain-reliever/fever-reducer/ID=prod6378203-product?skuId=sku6315827" style="color:#FFFFFF;"> 5.99</a> '}, 
+
+    {"name":"Advil Migraine ","Walmart":'<a href="https://www.walmart.com/ip/Advil-Migraine-Pain-Reliever-Liqui-Gels-20-Ea/490927297" style="color:#FFFFFF;">8.51</a> ', "CVS":'<a href="https://www.cvs.com/shop/advil-migraine-pain-reliever-solubilized-ibuprofen-200mg-liquid-filled-capsules-powerful-migraine-relief-prodid-1040241" style="color:#FFFFFF;"style="color:#FFFFFF;">4.99 </a>',"Walgreens":'<a href="https://www.walgreens.com/store/c/advil-migraine-solubilized-ibuprofen,-200-mg,-liquid-filled-capsules/ID=prod6169313-product" style="color:#FFFFFF;">2.37 </a>'},
+
+    {"name":"Ibuprofen ","Walmart":'<a href="https://www.walmart.com/ip/Equate-Ibuprofen-Tablets-200mg-200-Coated-Tablets/10324480" style="color:#FFFFFF;">3.88</a>', "CVS":'<a href="https://www.cvs.com/shop/cvs-health-ibuprofen-tablets-200-mg-pain-reliever-fever-reducer-100-s-prodid-144778" style="color:#FFFFFF;">9.29</a>',"Walgreens":'<a href="https://www.walgreens.com/store/c/walgreens-ibuprofen-pain-reliever/fever-reducer-200mg-tablets/ID=prod3882482-product?skuId=sku3881331" style="color:#FFFFFF;">5.99</a> '}, 
+
+    {"name":"Motrin IB (Ibuprofen non-prescription)","Walmart":'<a href="https://www.walmart.com/ip/Motrin-IB-Ibuprofen-200mg-Tablets-for-Pain-Fever-Relief-100-ct/893339" style="color:#FFFFFF;">14.75 </a>', "CVS":'<a href="https://www.cvs.com/shop/motrin-ib-pain-reliever-fever-reducer-coated-caplets-200-mg-100-ct-prodid-1012214" style="color:#FFFFFF;">11.29</a> ',"Walgreens":'<a href="https://www.walgreens.com/store/c/motrin-ib,-ibuprofen-200mg-tablets-for-pain-%26-fever-relief/ID=300405139-product" style="color:#FFFFFF;">10.49 </a>'}, 
+
+    {"name":"Childrens Advil","Walmart":'<a href="https://www.walmart.com/ip/Children-s-Advil-Sugarfree-Liquid-Suspension-Fever-Reducer-Pain-Reliever-Ibuprofen-in-Dye-Free-Berry-Flavor-100mg-4-fl-oz-Box/51677559" style="color:#FFFFFF;">9.56 </a>', "CVS":'<a href="https://www.cvs.com/shop/children-s-advilsuspension-4-fl-oz-100mg-ibuprofen-fever-reducer-pain-reliever-liquid-pain-medicine-ages-2-11-prodid-1040142" style="color:#FFFFFF;">7.99</a> ',"Walgreens":'<a href="https://www.walgreens.com/store/c/children"s-advil-ibuprofen-oral-suspension-grape/ID=prod6018118-product" style="color:#FFFFFF;">7.79</a>'},
+
+    {"name":"Sudafed ","Walmart":'<a href="https://www.walmart.com/ip/Sudafed-PE-Maximum-Strength-Non-Drowsy-Sinus-Decongestant-18-ct/45809357" style="color:#FFFFFF;"> 6.48</a>', "CVS":'<a href="https://www.cvs.com/shop/sudafed-pe-sinus-pressure-pain-max-strength-non-drowsy-caplets-24-ct-prodid-1011686" style="color:#FFFFFF;">10.29</a>',"Walgreens":'<a href="https://www.walgreens.com/store/c/sudafed-sinus-pressure---pain-relief-decongestant-tablets/ID=prod6163280-product" style="color:#FFFFFF;"> 8.99</a> '},
+
+    {"name":"Aspirin ","Walmart":'<a href="https://www.walmart.com/ip/Aspirin-Regimen-Bayer-Low-Dose-Pain-Reliever-Enteric-Coated-Tablets-81mg-120-Ct/12444553" style="color:#FFFFFF;">6.36</a> ', "CVS":'<a href="https://www.cvs.com/shop/aspirin-regimen-bayer-81mg-enteric-coated-tablets-pain-reliever-fever-reducer-prodid-1012177" style="color:#FFFFFF;">3.29</a> ',"Walgreens":'<a href="https://www.walgreens.com/store/c/bayer-aspirin-regimen,-safety-coated-enteric-caplets/ID=prod6191024-product" style="color:#FFFFFF;">7.99</a> '}, 
+    
+    {"name":"Acular (ketorolac)","Walmart":" 7.98 ", "CVS":"12.75","Walgreens":"18.99 "},
+
+    {"name":"Diclofex DC (diclofenac sodium) ","Walmart":"5.99 ", "CVS":"3.76 ","Walgreens":"6.79 "}, 
+
+    {"name":"Ketoprofen ER ","Walmart":"14.75 ", "CVS":"10.49 ","Walgreens":"11.29 "}, 
+
+    {"name":"Tolmetin ","Walmart":"9.56 ", "CVS":"7.79 ","Walgreens":"7.99 "},    
+
+]
+    
+    $('#search-input').on('keyup', function(){
+        var value = $(this).val()
+        console.log('Value:',value)
+        var data = searchTable(value,myArray)
+        buildTable(data)
+    })
+    
+    buildTable(myArray)
+    
+    function searchTable(value,data){
+        var filteredData = []
+        for(var i =0; i < data.length;i++){
+            value = value.toLowerCase()
+            var name = data[i].name.toLowerCase()
+    
+            if(name.includes(value)){
+                filteredData.push(data[i])
+            }
+        }
+        return filteredData
+    }
+       
+     
+        
+    function buildTable(data){
+        var table = document.getElementById('myTable')
+        table.innerHTML = ''
+        for (var i = 0; i < data.length; i++){
+            var colname = `name-${i}`
+            var colage = `CVS-${i}`
+            var colbirth = `birth-${i}`
+    
+            var row = `<tr>
+                            <td>${data[i].name}</td>
+                            <td>${data[i].Walmart}</td>
+                            <td>${data[i].CVS}</td>
+                            <td>${data[i].Walgreens}</td>
+                           
+                       </tr>`
+            table.innerHTML += row
+        }
+    }
+      </script>
+
+</html>
